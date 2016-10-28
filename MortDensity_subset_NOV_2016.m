@@ -132,6 +132,7 @@ plot([7500 7500],[-0.5 1.45E-6],'k')
 plot([0 10000],[1.448E-6 1.448E-6],'k')
 
 set(gcf, 'PaperPositionMode','auto')
+cd '/Users/julievanderhoop/Documents/MATLAB/NARWC2016'
 % print -dtiff vanderHoop_Density.tiff
 % print -depsc vanderHoop_CL_Fig4.eps
 

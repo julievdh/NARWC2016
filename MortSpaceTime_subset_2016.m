@@ -171,7 +171,7 @@ Other = find(MEAS2016(:,4) ~= 1);
 plot(MEAS2016(Other,6)/1000,mday2016(Other),'bo','MarkerEdgeColor','b',...
     'MarkerFaceColor','b')
 
-cd '/Users/julievanderhoop/Documents/MATLAB/NARWC 2016'
+cd '/Users/julievanderhoop/Documents/MATLAB/NARWC2016'
 print('SpaceTime20nmi_subset_updated.png','-dpng','-r300')
 
 return

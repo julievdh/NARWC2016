@@ -15,7 +15,7 @@ data = [2000,3084,236,342,125,69,2,1,0,1;2001,3848,281,360,127,78,5,1,2,2;
 
 %% figure 1: How many dead animals we find vs. live animals we see
 
-cd '/Users/julievanderhoop/Documents/MATLAB/NARWC 2016'
+cd '/Users/julievanderhoop/Documents/MATLAB/NARWC2016'
 
 figure(1);
 [AX,H1,H2] = plotyy(data(:,1),data(:,6),data(:,1),data(:,7));
