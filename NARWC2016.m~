@@ -41,18 +41,18 @@ MSI = [2000,1,0,0,0;2001,1,0,1,2;2002,2,0,1,1;2003,1,0,0,1;2004,0,0,1,2;...
 figure(4); clf
 barh(MSI(:,[4 2]),'stacked') % EN SI and MT
 set(gca,'ytick',1:2:2014,'yticklabel',MSI(1:2:end,1)); title('Entanglement')
-xlim([0 10]); axis ij
+xlim([0 10])
 xlabel('Number of Cases')
-adjustfigurefont('Helvetica',18)
+adjustfigurefont
 
 print('Eg_ENMortSI.png','-dpng','-r300')
 %%
-figure(5); clf
+figure(5)
 barh(MSI(:,[5 3]),'stacked') % VS SI and MT
-set(gca,'ytick',1:2:2014,'yticklabel',MSI(1:2:end,1)); title('Vessel Strikes')
-xlim([0 10]); axis ij; set(gca,'xdir','reverse','yaxislocation','right')
-xlabel('Number of Cases')
-adjustfigurefont('Helvetica',18)
+set(gca,'xtick',1:2:2014,'xticklabel',MSI(1:2:end,1)); title('Vessel Strikes')
+ylim([0 10])
+ylabel('Number of Cases')
+adjustfigurefont
 print('Eg_VSMortSI.png','-dpng','-r300')
 
 

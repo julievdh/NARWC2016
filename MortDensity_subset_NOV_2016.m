@@ -7,6 +7,7 @@
 close all; clear all; clc
 
 % load data files
+% MORTALITIES ONLY, NO SI
 load beachedMEAS_subset2016.mat
 
 % subtract measurement 2993662 as this is the spatial reference of the tip
@@ -46,9 +47,9 @@ post = find(otherCOD(:,1) > 2008);
 
 figure(1), clf
 set(gcf,'Position',[250 250 785 500])
-plot(xi_allall/1000,f_pre_ALL,'k--'); hold on
-plot(xi_allall/1000,f_pre_ALL4,'k.-'); hold on
-plot(xi_allall/1000,f_post_ALL,'k')
+% plot(xi_allall/1000,f_pre_ALL,'k--'); hold on
+% plot(xi_allall/1000,f_pre_ALL4,'k.-'); hold on
+% plot(xi_allall/1000,f_post_ALL,'k')
 
 % calculate kernel densities
 [f_post,xi_post] = ksdensity(VS(vspost,6),xi_allall,'width',200000);
@@ -56,20 +57,24 @@ plot(xi_allall/1000,f_post_ALL,'k')
 [f_pre4,xi_pre4] = ksdensity(VS(vspre4,6),xi_allall,'width',200000);
 
 % plot VS kernel densities
-plot(xi_pre/1000,f_pre,'r--'); hold on
-plot(xi_pre/1000,f_pre4,'r.-')
-plot(xi_post/1000,f_post,'r')
+plot(xi_pre/1000,f_pre,'k--'); hold on
+% plot(xi_pre/1000,f_pre4,'b.-')
+% X=[xi_pre/1000,fliplr(xi_pre/1000)];                %#create continuous x value array for plotting
+% Y=[f_pre,fliplr(f_pre4)];              %#create y values for out and then back
+% fill(X,Y,'b');                  %#plot filled area between all pre and pre-4 
+
+plot(xi_post/1000,f_post,'k')
 ylim([-0.25E-7 1.45E-6])
 xlim([2999 7500])
 
 %% for 2012-2016 events:
 % calculate kernel densities
-[f_post2016,xi_post2016] = ksdensity(MEAS2016(:,6),xi_allall,'width',200000);
-plot(xi_post2016/1000,f_post2016,'b')
+% [f_post2016,xi_post2016] = ksdensity(MEAS2016(:,6),xi_allall,'width',200000);
+% plot(xi_post2016/1000,f_post2016,'r')
 
 % all post (2009 - 2016)
-[f_allpost2016,xi_allpost2016] = ksdensity(vertcat(VS(vspost,6),MEAS2016(:,6)),xi_allall,'width',200000);
-plot(xi_allpost2016/1000,f_allpost2016,'g')
+% [f_allpost2016,xi_allpost2016] = ksdensity(vertcat(VS(vspost,6),MEAS2016(:,6)),xi_allall,'width',200000);
+% plot(xi_allpost2016/1000,f_allpost2016,'g')
 
 
 %% 
@@ -109,21 +114,21 @@ text(7400,1.28E-6,'ROS','Rotation',90,'FontSize',12) % Roseway
 ylabel('Kernel Density')
 xlabel('Distance along coastline (km)')
 
-% brush plot
+%% brush plot
 % for i = 1:length(MEAS)
 % plot([MEAS(i,6)/1000 MEAS(i,6)/1000],[11.5E-7 12E-7],'k')
 % end
-%%
+%
 for i = 1:length(VS)
-plot([VS(vspre,6)/1000 VS(vspre,6)/1000],[11E-7 11.5E-7],'r')
+plot([VS(vspre,6)/1000 VS(vspre,6)/1000],[11.5E-7 12E-7],'k')
 end
 
 for i = 1:length(VS)
-plot([VS(vspost,6)/1000 VS(vspost,6)/1000],[10.5E-7 11E-7],'r')
+plot([VS(vspost,6)/1000 VS(vspost,6)/1000],[11E-7 11.5E-7],'k')
 end
 
 for i = 1:length(MEAS2016)
-plot([MEAS2016(i,6)/1000 MEAS2016(i,6)/1000],[10.5E-7 11E-7],'b')
+plot([MEAS2016(i,6)/1000 MEAS2016(i,6)/1000],[11E-7 11.5E-7],'r')
 end
 
 set(gca,'XtickLabel',[0:500:4500])
@@ -133,8 +138,7 @@ plot([0 10000],[1.448E-6 1.448E-6],'k')
 
 set(gcf, 'PaperPositionMode','auto')
 cd '/Users/julievanderhoop/Documents/MATLAB/NARWC2016'
-% print -dtiff vanderHoop_Density.tiff
-% print -depsc vanderHoop_CL_Fig4.eps
+print('vanderHoop_Density_updated.png','-dpng','-r300')
 
 return
 

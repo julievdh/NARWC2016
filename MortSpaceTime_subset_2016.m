@@ -1,6 +1,8 @@
 % Plots mortalities in time and space and spatial and temporal extent of
 % regulations (both ship strike rule and other regs in Canada). 
 
+% MORTALITIES ONLY, NO SI NOW - AS OF 30 OCT 2016
+
 % June 8 2013
 % updated Oct 24 for NARWC 2016 with 2012-2016 mortalities and serious
 % injuries
@@ -32,9 +34,9 @@ vsmday = mday(vsmday);
 figure(2); clf; hold on
 set(gcf,'Position',[343          58        1050         550])
 % plot right whales 
-Eg = find(VS(:,4) == 1);
-plot(VS(Eg(VS(Eg)<2009),6)/1000,vsmday(Eg(VS(Eg)<2009)),'ro','markersize',8)
-plot(VS(Eg(VS(Eg)>=2009),6)/1000,vsmday(Eg(VS(Eg)>=2009)),'ro',...
+Egold = find(VS(:,4) == 1);
+plot(VS(Egold(VS(Egold)<2009),6)/1000,vsmday(Egold(VS(Egold)<2009)),'ro','markersize',8)
+plot(VS(Egold(VS(Egold)>=2009),6)/1000,vsmday(Egold(VS(Egold)>=2009)),'ro',...
     'MarkerSize',8,'MarkerEdgeColor','r','MarkerFaceColor','r')
 % newest data
 Eg = find(MEAS2016(:,4) == 1);
@@ -89,6 +91,7 @@ plot(PORTS(29:32,1)/1000,PORTS(29:32,2),'k')
 
 % %% if widen port entrances from 20 nmi to 30 nmi:
 % % original radius = 20 nmi = 37 km. Wider radius = 30 nmi = 56 km
+% PORTSWIDE = PORTS;
 % PORTSWIDE(1:4:end,1) = PORTS(1:4:end,1) - 19000;
 % PORTSWIDE(2:4:end,1) = PORTS(2:4:end,1) - 19000; 
 % PORTSWIDE(3:4:end,1) = PORTS(3:4:end,1) + 19000; 
