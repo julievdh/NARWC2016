@@ -1,5 +1,5 @@
 % Calculates kernel density of distance along coastline of mortalities
-% associated with VS or all COD. 
+% associated with VS or all COD.
 
 % Julie van der Hoop jvanderhoop@whoi.edu
 % June 6 2013; Updated 26 Oct 2016 for NARWC 2016
@@ -27,6 +27,21 @@ vspre4 = [82:109]'; % between 9 Dec 2004 and 9 Dec 2008
 % vspre4 = find(VS(:,1) < 2009 & VS(:,1) > 2004);
 vspost = find(VS(:,1) > 2008);
 
+%% which ones are in the middle?
+
+opentime = iswithin(VS(:,2),[5 11]);
+openspace = iswithin(VS(:,6),[4737100 5975760]);
+for i = 1:length(openspace)
+    if opentime(i) == 1 & openspace(i) == 1
+        openspacetime(i) = 1;
+    else openspacetime(i) = 0;
+    end
+end
+
+% species = VS(:,4)
+figure(9)
+histogram(VS(openspacetime == 1,4))
+
 %% for all OTHER COD
 
 % find COD not = VS
@@ -45,6 +60,7 @@ post = find(otherCOD(:,1) > 2008);
 [f_post_ALL,xi_post_ALL] = ksdensity(otherCOD(post,6),xi_allall,'width',200000);
 [f_pre_ALL4,xi_pre_ALL4] = ksdensity(otherCOD(pre4,6),xi_allall,'width',200000);
 
+% begin to plot
 figure(1), clf; hold on
 set(gcf,'Position',[250 250 785 500])
 % rule extents
@@ -81,7 +97,7 @@ text(7400,1.28E-6,'ROS','Rotation',90,'FontSize',12) % Roseway
 ylim([-0.25E-7 1.45E-6])
 xlim([2999 7500])
 
-%% legend('Pre-rule All COD','Post-Rule All COD','Pre-rule VS','Post-rule VS','Location','best')
+% legend('Pre-rule All COD','Post-Rule All COD','Pre-rule VS','Post-rule VS','Location','best')
 ylabel('Kernel Density')
 xlabel('Distance along coastline (km)')
 
@@ -90,7 +106,7 @@ xlabel('Distance along coastline (km)')
 % plot(xi_allall/1000,f_pre_ALL4,'k.-'); hold on
 % plot(xi_allall/1000,f_post_ALL,'k')
 
-% calculate kernel densities
+%% calculate kernel densities
 [f_post,xi_post] = ksdensity(VS(vspost,6),xi_allall,'width',200000);
 [f_pre,xi_pre] = ksdensity(VS(vspre,6),xi_allall,'width',200000);
 [f_pre4,xi_pre4] = ksdensity(VS(vspre4,6),xi_allall,'width',200000);
@@ -100,18 +116,18 @@ plot(xi_pre/1000,f_pre,'k--'); hold on
 % plot(xi_pre/1000,f_pre4,'b.-')
 % X=[xi_pre/1000,fliplr(xi_pre/1000)];                %#create continuous x value array for plotting
 % Y=[f_pre,fliplr(f_pre4)];              %#create y values for out and then back
-% fill(X,Y,'b');                  %#plot filled area between all pre and pre-4 
+% fill(X,Y,'b');                  %#plot filled area between all pre and pre-4
 
 plot(xi_post/1000,f_post,'k')
 
 %% for 2012-2016 events:
 % calculate kernel densities
-% [f_post2016,xi_post2016] = ksdensity(MEAS2016(:,6),xi_allall,'width',200000);
-% plot(xi_post2016/1000,f_post2016,'r')
+%[f_post2016,xi_post2016] = ksdensity(MEAS2016(:,6),xi_allall,'width',200000);
+%plot(xi_post2016/1000,f_post2016,'r')
 
 % all post (2009 - 2016)
-% [f_allpost2016,xi_allpost2016] = ksdensity(vertcat(VS(vspost,6),MEAS2016(:,6)),xi_allall,'width',200000);
-% plot(xi_allpost2016/1000,f_allpost2016,'g')
+[f_allpost2016,xi_allpost2016] = ksdensity(vertcat(VS(vspost,6),MEAS2016(:,6)),xi_allall,'width',200000);
+plot(xi_allpost2016/1000,f_allpost2016,'r')
 
 %% brush plot
 % for i = 1:length(MEAS)
@@ -119,15 +135,15 @@ plot(xi_post/1000,f_post,'k')
 % end
 %
 for i = 1:length(VS)
-plot([VS(vspre,6)/1000 VS(vspre,6)/1000],[11.5E-7 12E-7],'k')
+    plot([VS(vspre,6)/1000 VS(vspre,6)/1000],[11.5E-7 12E-7],'k')
 end
 
 for i = 1:length(VS)
-plot([VS(vspost,6)/1000 VS(vspost,6)/1000],[11E-7 11.5E-7],'k')
+    plot([VS(vspost,6)/1000 VS(vspost,6)/1000],[11E-7 11.5E-7],'r')
 end
 
 for i = 1:length(MEAS2016)
-plot([MEAS2016(i,6)/1000 MEAS2016(i,6)/1000],[11E-7 11.5E-7],'r')
+    plot([MEAS2016(i,6)/1000 MEAS2016(i,6)/1000],[11E-7 11.5E-7],'r')
 end
 
 set(gca,'XtickLabel',[0:500:4500])
@@ -137,11 +153,11 @@ plot([0 10000],[1.448E-6 1.448E-6],'k')
 
 set(gcf, 'PaperPositionMode','auto')
 cd '/Users/julievanderhoop/Documents/MATLAB/NARWC2016'
-print('vanderHoop_Density_updated.png','-dpng','-r300')
+print('vanderHoop_Density_updated2016.png','-dpng','-r300')
 
 return
 
-%% US ONLY AND KS TEST 
+%% US ONLY AND KS TEST
 
 % find mortalities in US waters
 US = find(MEAS(:,6) < 6745185);
@@ -171,7 +187,7 @@ plot(xi_pre_VSUS,f_pre_VSUS,'r--')
 plot(xi_post_VSUS,f_post_VSUS,'r')
 
 
-%% 
+%%
 figure(3)
 set(gcf,'Position',[1600 -100 800 700])
 subplot(211)

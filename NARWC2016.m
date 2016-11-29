@@ -16,6 +16,7 @@ data = [2000,3084,236,342,125,69,2,1,0,1;2001,3848,281,360,127,78,5,1,2,2;
 %% figure 1: How many dead animals we find vs. live animals we see
 
 cd '/Users/julievanderhoop/Documents/MATLAB/NARWC2016'
+load beachedMEAS_subset2016.mat
 
 figure(1);
 [AX,H1,H2] = plotyy(data(:,1),data(:,6),data(:,1),data(:,7));
@@ -90,3 +91,10 @@ xlim([1989 2017]); ylim([0 10]); ylabel('Number of Cases')
 adjustfigurefont
 
 print('EgOtherTimeline.png','-dpng','-r300')
+
+%% Compliance data
+
+compliance = [2009,4,57.30000;2010,4.20000,55.500000;
+    2011,12.8000,38.3000;2012,23.10000,29.100; 2013,23.70000,26.9000];
+figure(8); hold on
+plot(compliance(:,1),compliance(:,2)/10)
