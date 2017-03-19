@@ -1,5 +1,8 @@
 % NARWC Meeting 2016 - Is the vessel-strike problem solved?
 % 11 Oct 2016
+warning off
+
+close all; clear all; clc
 
 % year / N sightings / Unique IDs / Presumed alive / Survey effort (1000s
 % km) / % Pop seen / All EG Morts / EG EN morts / EG VS Morts / UN morts
@@ -47,6 +50,66 @@ xlabel('Number of Cases')
 adjustfigurefont('Helvetica',18)
 
 print('Eg_ENMortSI.png','-dpng','-r300')
+%% 
+testdata(:,2) = data(:,7)-MSI(:,4); % mortalities other than EN
+testdata(:,1) = MSI(:,4); % EN mortalities
+testdata(:,3) = MSI(:,2); % EN SI
+
+figure(20); clf
+set(gcf,'position',[427   200   1044   473],'paperpositionmode','auto')
+
+bar(data(:,7),'stacked')
+ylim([0 11])
+set(gca,'xtick',1:2:2014,'xticklabel',MSI(1:2:end,1))
+
+myC= [0 0 0;];
+colormap(myC)
+
+adjustfigurefont('Helvetica',18)
+
+% save
+print('AllMorts_NARW.png','-dpng','-r300')
+
+%% plot EN Morts
+hold on
+bar(testdata(:,[1 2]),'stacked')
+myC= [0.5 0.5 0.5; 0 0 0;];
+colormap(myC)
+
+% save
+print('AllMorts_NARW_EN.png','-dpng','-r300')
+
+%% add SI 
+bar(testdata,'stacked')
+myC= [0.5 0.5 0.5; 0 0 0; 1 1 1];
+colormap(myC)
+
+print('AllMorts_NARW_ENSI.png','-dpng','-r300')
+
+PBR = [2000 2009 2010 2011 2012 2013 2014 2015 2016;0 0 0.7 0.8 0.9 0.9 0.9 1 1];
+plot(PBR(1,:)-1999,PBR(2,:),'linewidth',2,'color',[204/255 83/255 20/255])
+
+print('AllMorts_NARW_ENSI_PBR.png','-dpng','-r300')
+return
+
+
+%% also plot horizontally
+figure(40); clf; hold on
+bar(MSI(:,[4 2]),'stacked') % EN SI and MT
+set(gca,'xtick',1:2:2014,'xticklabel',MSI(1:2:end,1)); title('Entanglement')
+ylim([0 10])
+ylabel('Number of Cases')
+adjustfigurefont('Helvetica',18)
+set(gcf,'position',[427   200   1044   473],'paperpositionmode','auto')
+
+myC= [0 0 0; 0.75 0.75 0.75];
+colormap(myC)
+
+PBR = [2000 2009 2010 2011 2012 2013 2014 2015 2016;0 0 0.7 0.8 0.9 0.9 0.9 1 1];
+plot(PBR(1,:)-1999,PBR(2,:),'linewidth',2,'color',[0.5 0.5 0.5])
+
+print('Eg_ENMortSI_horizontal.png','-dpng','-r300')
+
 %%
 figure(5); clf
 barh(MSI(:,[5 3]),'stacked') % VS SI and MT
@@ -91,6 +154,49 @@ xlim([1989 2017]); ylim([0 10]); ylabel('Number of Cases')
 adjustfigurefont
 
 print('EgOtherTimeline.png','-dpng','-r300')
+
+%% 
+
+histogram(data(:,7))
+
+return
+
+%% population
+
+pop = [1990	270.96106	4.19907
+1991	273.9844	4.19727
+1992	282.35004	4.96243
+1993	282.31995	3.43512
+1994	289.16068	3.05222
+1995	293.32843	2.67117
+1996	308.9472	2.67176
+1997	316.1684	3.05282
+1998	314.99326	3.43389
+1999	311.90912	3.05224
+2000	315.31415	2.28945
+2001	333.22357	1.90659
+2002	356.09302	3.43512
+2003	364.0782	1.5249
+2004	375.49847	3.05163
+2005	394.9334	1.90782
+2006	404.4447	3.05283
+2007	418.91843	2.67053
+2008	442.9341	1.90782
+2009	466.56754	3.43389
+2010	481.8046	4.19787
+2011	481.01056	4.57894
+2012	479.45312	5.72641
+2013	475.9879	9.16032
+2014	469.85095	9.92307
+2015	461.04282	12.21252];
+
+figure(80)
+errorbar(pop(:,1),pop(:,2),pop(:,3),'ko','markerfacecolor','k')
+xlim([1989 2016]); ylim([200 500])
+adjustfigurefont('Helvetica',18)
+set(gcf,'position',[427   298   851   375],'paperpositionmode','auto')
+
+ print('NARWPopTrend.png','-dpng','-r300')
 
 %% Compliance data
 
