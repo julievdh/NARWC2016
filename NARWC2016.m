@@ -159,6 +159,12 @@ print('EgOtherTimeline.png','-dpng','-r300')
 
 histogram(data(:,7))
 
+
+%% calving data
+
+calf = [2007 23; 2008 23; 2009 39; 2010 19; 2011 22; 2012 7; 2013 20; 2014 11; 2015 17; 2016 14; 2017 3];
+figure
+plot(calf(:,1),calf(:,2))
 return
 
 %% population
