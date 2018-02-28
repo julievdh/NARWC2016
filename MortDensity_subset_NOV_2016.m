@@ -112,7 +112,7 @@ xlabel('Distance along coastline (km)')
 [f_pre4,xi_pre4] = ksdensity(VS(vspre4,6),xi_allall,'width',200000);
 
 % plot VS kernel densities
-plot(xi_pre/1000,f_pre,'k--'); hold on
+h = plot(xi_pre/1000,f_pre,'k--'); hold on
 % plot(xi_pre/1000,f_pre4,'b.-')
 % X=[xi_pre/1000,fliplr(xi_pre/1000)];                %#create continuous x value array for plotting
 % Y=[f_pre,fliplr(f_pre4)];              %#create y values for out and then back
@@ -317,3 +317,5 @@ text(38.9,0.66,'CCB/ORP','Rotation',90,'FontSize',12)
 % set(gcf, 'units', 'centimeters', 'pos', [52 10 17.3 7])
 % set(gcf, 'units', 'centimeters')
 % print -depsc vanderHoop_CL_Fig4.eps
+
+

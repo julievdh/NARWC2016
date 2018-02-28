@@ -62,3 +62,48 @@ adjustfigurefont('Helvetica',18)
 set(gcf,'paperpositionmode','auto')
 xlim([1992 2018])
 print('VS_ManagementTimeline','-dpng','-r300')
+
+%% 
+testdata(:,2) = data(:,7)-MSI(:,5); % mortalities other than VS
+testdata(:,1) = MSI(:,5); % VS mortalities
+testdata(:,3) = MSI(:,3); % VS SI
+
+figure(20); clf
+set(gcf,'position',[427   200   1044   473],'paperpositionmode','auto')
+
+bar(data(:,7),'stacked')
+% ylim([0 11])
+set(gca,'xtick',1:2:length(data),'xticklabel',MSI(1:2:end,1))
+
+myC= [0 0 0;];
+colormap(myC)
+
+adjustfigurefont('Helvetica',18)
+
+% save
+print('AllMorts_NARW_2017.png','-dpng','-r300')
+
+%% plot VS Morts
+hold on
+bar(testdata(:,[1 2]),'stacked')
+myC= [0.5 0.5 0.5; 0 0 0;];
+colormap(myC)
+
+% save
+print('AllMorts_NARW_VS.png','-dpng','-r300')
+
+%% add SI 
+bar(testdata,'stacked')
+myC= [0.5 0.5 0.5; 0 0 0; 1 1 1];
+colormap(myC)
+
+print('AllMorts_NARW_VSSI.png','-dpng','-r300')
+
+PBR = [2000 2009 2010 2011 2012 2013 2014 2015 2016 2017; 0 0 0.7 0.8 0.9 0.9 0.9 1 1 1];
+plot(PBR(1,:)-1999,PBR(2,:),'linewidth',3,'color',[204/255 83/255 20/255])
+
+print('AllMorts_NARW_VSSI_PBR.png','-dpng','-r300')
+return
+
+% proportion of HI to total?
+sum(MSI(:,[3 5])')'./data(:,7);
