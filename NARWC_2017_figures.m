@@ -107,3 +107,47 @@ return
 
 % proportion of HI to total?
 sum(MSI(:,[3 5])')'./data(:,7);
+
+
+%% calving data 
+calving(:,1) = 1993:2018; % years 
+calving(:,2:3) = [8,2;8,0;7,0;22,3;20,1;6,1;4,0;1,0;31,4;22,2;19,0;16,1;28,0;
+    19,2;23,2;23,2;39,1;19,0;22,0;7,1;20,1;11,1;17,0;14,1;3,1;0,0]; % number of calves and number of dead calves
+% data from Waring et al. 2016 and Report cards
+
+testdata(:,1) = calving(:,2)-calving(:,3); % surviving calves
+testdata(:,2) = calving(:,3); % dead calves
+
+
+figure(20); clf
+set(gcf,'position',[427   200   1044   473],'paperpositionmode','auto')
+
+bar(testdata,'stacked')
+set(gca,'xtick',2:2:length(calving),'xticklabel',calving(2:2:end,1),'xlim',[0 27])
+myC= [0 0 0; 0.5 0.5 0.5];
+colormap(myC)
+ylabel('Number of Calves')
+
+adjustfigurefont('Helvetica',18)
+
+% save
+print('Calves_NARW_1993-2018.png','-dpng','-r300')
+
+%% reproduction 
+interval(:,1) = 2008:2017;
+interval(:,2:4) = [3,3,7;4,4,8;3,3,4;4,3,3;5,4,2;5,4,7;4,5,1;6,6,4;7,7,4;10,8,0];
+% mean calving interval, median calving interval, new moms 
+% data from NARWC, Heather Pettis presentation 2017
+
+figure(21); clf, hold on 
+set(gcf,'position',[427   200   1044   473],'paperpositionmode','auto')
+plot(interval(:,1),interval(:,3),'LineWidth',2,'color',[0.6 0.6 0.6]); 
+plot(interval(:,1),interval(:,2),'LineWidth',2,'color','k'); 
+ylim([0 11]) 
+
+ylabel('Calving Interval (Years)')
+
+adjustfigurefont('Helvetica',18)
+
+% save
+print('CalfInt_NARW_2008-2017.png','-dpng','-r300')
