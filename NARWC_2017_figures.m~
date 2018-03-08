@@ -164,7 +164,7 @@ allVSmort = vertcat([num(1:30,7) num(1:30,9)],[MSI(:,1) MSI(:,5)],[2018 1]); % u
 figure(22); clf, hold on 
 set(gcf,'position',[427   200   1044   473],'paperpositionmode','auto')
 bar(allENmort(:,1),[allENmort(:,2) allVSmort(:,2)],'stacked')
-xlim([1969 2019]), adjustfigurefont('Helvetica',18)
+xlim([1970 2019]), adjustfigurefont('Helvetica',18)
 
 print -dpng EgMortHI_19702018 -r300
 
@@ -177,9 +177,9 @@ allothermort = vertcat([num(1:30,7) sum(num(1:30,10:11)')'],[KD(:,1) OM],[2018 0
 %%
 bar(allENmort(:,1),[allENmort(:,2) allVSmort(:,2) allothermort(:,2)],'stacked');
 
-myC = [53 42 134; 248 250 13;  55 184 154]/255;
+myC = [248 250 13; 53 42 134; 55 184 154]/255;
 colormap(myC)
 
-xlim([1969 2019]), adjustfigurefont('Helvetica',18)
+xlim([1970 2019]), adjustfigurefont('Helvetica',18)
 
 print -dpng EgMortall_19702018 -r300

@@ -13,6 +13,11 @@ ylim([0 2000]), xlim([1993 2018])
 
 print -dpng EgPop_19932018 -r300
 
+ylim([0 550]), xlim([1970 2019])
+
+print -dpng EgPop_19702019 -r300
+
+
 %% whaling timeline
 yrs = [1000 1100 1400 1500 1600 1700 1780 1800 1900 1924 1935 1982];
 figure(7), clf, hold on
