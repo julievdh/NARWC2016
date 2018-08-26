@@ -180,6 +180,12 @@ bar(allENmort(:,1),[allENmort(:,2) allVSmort(:,2) allothermort(:,2)],'stacked');
 myC = [53 42 134; 248 250 13;  55 184 154]/255;
 colormap(myC)
 
-xlim([1969 2019]), adjustfigurefont('Helvetica',18)
+xlim([1969 2019])
 
 print -dpng EgMortall_19702018 -r300
+
+PBR = [1970 2000 2009 2010 2011 2012 2013 2014 2015 2016 2017; 0 0 0 0.7 0.8 0.9 0.9 0.9 1 1 1];
+plot(PBR(1,:),PBR(2,:),'linewidth',2,'color',[204/255 83/255 20/255])
+ylabel('Number of Confirmed Mortalities'), adjustfigurefont('Helvetica',18)
+
+print -dpng EgMortall_19702018_PBR -r300 
